@@ -23,10 +23,10 @@ using std::ostream;
 struct litskiDetails {
   unsigned int index;
   string name;
-  unsigned int servingSize;
-  unsigned int servingPrice;
-  unsigned int purchaseQuanity;
-  unsigned int purchasePrice;
+  float servingSize;
+  float servingPrice;
+  float purchaseQuanity;
+  float purchasePrice;
     
   litskiDetails() {
     index = 0;
@@ -87,6 +87,7 @@ class Litski {
     litskiDetails tokenizeFormula(string input);
     vector<litskiDetails> formula;
     int option;
+    float size, price, quantity;
     string filename;
  
   };
@@ -138,7 +139,23 @@ void Litski::MainMenu() {
 }
 
 void Litski::addIngredient() {
-cout << endl << formula.at(0).servingPrice << endl;
+  litskiDetails lsd;
+  // automatically keep track of index
+  lsd.index = formula.size() + 1;
+  cout << "Fill in the following\nName: ";
+    cin >> lsd.name;
+  cout << "Purchase Price: ";
+    cin >> price;
+    lsd.purchasePrice = price;
+  cout << "Quantity(grams): ";
+    cin >> quantity;
+    lsd.purchaseQuanity = quantity; 
+  cout << "Serving Size(grams): ";
+    cin >> size;
+    lsd.servingSize = size;
+  lsd.servingPrice = price / (quantity/size);
+  formula.push_back(lsd);
+  MainMenu();
 }
 
 void Litski::removeIngredient() {
